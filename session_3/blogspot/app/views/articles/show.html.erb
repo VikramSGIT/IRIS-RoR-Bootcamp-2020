@@ -1,4 +1,4 @@
-<p id="notice"><%= notice %></p>
+<p id="alert"><%= alert %></p>
 
 <p>
   <strong>Title:</strong>
@@ -19,7 +19,7 @@
   <strong>Content:</strong>
   <%= @article.content %>
 </p>
-<%#even we can check the condition here%>
+<%#even we can check the condition here too%>
   <%if @goodboy%>
     <%= link_to 'Edit', edit_article_path(@article) %> |
   <%end%>

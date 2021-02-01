@@ -14,7 +14,6 @@
   </thead>
 
   <tbody>
-  <%if @im%>
     <% @articles.each do |article| %>
       <tr>
         <td><%= article.title %></td>
@@ -22,23 +21,12 @@
         <td><%= article.topic %></td>
         <td><%= article.content %></td>
         <td><%= link_to 'Show', article %></td>
-        <%if @goodboy%>
+        <%if can? :update, article, user_id: current_user.id || current_user.admin%>
           <td><%= link_to 'Edit', edit_article_path(article) %></td>
           <td><%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <%end%>
       </tr>
     <% end %>
-  <%else%>
-    <% @articles.each do |article| %>
-      <tr>
-        <td><%= article.title %></td>
-        <td><%= article.tags %></td>
-        <td><%= article.topic %></td>
-        <td><%= article.content %></td>
-        <td><%= link_to 'Show', article %></td>
-      </tr>
-    <%end%>
-  <%end%>
   </tbody>
 </table>
 

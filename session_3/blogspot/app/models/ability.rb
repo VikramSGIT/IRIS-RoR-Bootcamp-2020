@@ -4,16 +4,16 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    # All users
     can :index, Article
-    
-    # Can read public articles
-    can :show, Article, public: true
+    can :create, Article
+    can :show, Article
 
-    # Additional permissions for logged in users
     if user.present?
       can [:show, :create], Article
       can [:update, :destroy], Article, user_id: user.id
+      if user.admin
+        can :manage, [Atricle, User]
+      end
     end
   end
 end

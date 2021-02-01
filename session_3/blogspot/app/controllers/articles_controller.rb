@@ -9,28 +9,40 @@ class ArticlesController < ApplicationController
 
   # GET /articles or /articles.json
   def index
-    @articles = Article.last(5)
-    if current_user
-      @articles = Article.all
+    @articles = Article.all
+    if !current_user
+      session[:private_access] = 5
     end
   end
 
   # GET /articles/1 or /articles/1.json
   def show
-     if can? :update, @article, user_id: current_user.id
+    if current_user
+     if can? :update, @article, user_id: current_user.id || current_user.admin
       @goodboy = true;
      end
+    end
 
     # can use this also, but i think not safe
-    #if @article.user_id == current_user.id
-    # @me = true
+    #if @article.user_id == current_user.id || session[:admin]
+    # @too = true
     #end
+    if session[:private_access] <= 0
+      render "users/Login"
+      flash[:alert] = "Reached Maximum Private Article Limit!! Do Sign or Login to continue"
+    elsif !(current_user) && !@article.public
+      session[:private_access] -= 1
+    end
   end
 
   # POST /articles or /articles.json
   def create
-    @article = Article.new(article_params)
-    @article.user_id = current_user.id
+    if current_user
+      @article = Article.new(article_params)
+      @article.public = false
+      @article.user_id = current_user.id
+    else
+    end
   
     if @article.save
       redirect_to @article, notice: 'Article was successfully created.'
