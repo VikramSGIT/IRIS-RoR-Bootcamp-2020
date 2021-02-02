@@ -31,7 +31,11 @@
     <%= form.text_area :content %>
   </div>
 
+  <div class="field">
+    <%= form.label :public %>
+    <%= form.check_box :public %>
+  </div>
+  
   <div class="actions">
     <%= form.submit %>
-  </div>
 <% end %>

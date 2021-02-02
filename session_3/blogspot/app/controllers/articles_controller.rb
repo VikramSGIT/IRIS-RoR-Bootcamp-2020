@@ -3,51 +3,54 @@ class ArticlesController < ApplicationController
 
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
-  def article_params
-    params.require(:article).permit(:title, :topic, :tags, :content, :public)
-  end
-
   # GET /articles or /articles.json
   def index
     @articles = Article.all
-    if !current_user
-      session[:private_access] = 5
+    if current_user
+      if session[:private_access] > 0
+        @im = true
+      else
+        flash[:notice] = "Private Access Limit Exhausted!!"
+      end
+      if !session[:private_access]
+        session[:private_access] = 5
+      end
     end
   end
 
   # GET /articles/1 or /articles/1.json
   def show
     if current_user
-     if can? :update, @article, user_id: current_user.id || current_user.admin
-      @goodboy = true;
-     end
+      if can? :show, @article, user_id:current_user.id
+        @im = true
+      end
+      if can? :update, @article, user_id: current_user.id
+        @goodboy = true;
+      end
+      if !@article.public
+        session[:private_access] -= 1
+        current_user.private_access -= 1
+        current_user.save
+      end
     end
-
     # can use this also, but i think not safe
     #if @article.user_id == current_user.id || session[:admin]
     # @too = true
     #end
-    if session[:private_access] <= 0
-      render "users/Login"
-      flash[:alert] = "Reached Maximum Private Article Limit!! Do Sign or Login to continue"
-    elsif !(current_user) && !@article.public
-      session[:private_access] -= 1
-    end
   end
 
   # POST /articles or /articles.json
   def create
     if current_user
       @article = Article.new(article_params)
-      @article.public = false
       @article.user_id = current_user.id
+      if @article.save
+        redirect_to @article, notice: 'Article was successfully created.'
+      else
+        render :new
+      end
     else
-    end
-  
-    if @article.save
-      redirect_to @article, notice: 'Article was successfully created.'
-    else
-      render :new
+      redirect_to @article, notice: 'Login to continue.'
     end
   end
 
@@ -81,6 +84,6 @@ class ArticlesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def article_params
-      params.require(:article).permit(:title, :tags, :topic, :content)
+      params.require(:article).permit(:title, :tags, :topic, :content, :public)
     end
 end
