@@ -7,7 +7,7 @@
 
 # Logging In and Creating Article
 
-<img src="/5. LoggedIn.PNG" height = "250"> 
+<img src="Screenshot/5. LoggedIn.PNG" height = "250"> 
 
 <img src="Screenshot/7. Public Article.PNG" height = "250">
 
@@ -49,6 +49,6 @@ Once logged out only Public Articles are visible
 
 Calls FBI!!
 
-<img src="Screenshot/16. FBI.gif" height = "250">
+<img src="Screenshot/FIB.gif" height = "250">
 
 Thank You for wachin!!!
