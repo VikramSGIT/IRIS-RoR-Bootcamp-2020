@@ -15,7 +15,7 @@
 
   <tbody>
     <% @articles.each do |article| %>
-    <%if @im || article.public%>
+    <%if @im || article.public || article.user_id == @id%>
       <tr>
         <td><%= article.title %></td>
         <td><%= article.tags %></td>

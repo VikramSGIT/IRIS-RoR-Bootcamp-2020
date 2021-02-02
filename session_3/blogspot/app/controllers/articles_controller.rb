@@ -10,6 +10,7 @@ class ArticlesController < ApplicationController
       if session[:private_access] > 0
         @im = true
       else
+        @id = current_user.id
         flash[:notice] = "Private Access Limit Exhausted!!"
       end
       if !session[:private_access]
