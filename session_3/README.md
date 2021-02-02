@@ -33,7 +33,7 @@ When loggedIn we see this
 
 Creating another private article
 
-<img src="Screenshot/13 Filter links.PNG" height = "250">
+<img src="Screenshot/13. Filter links.PNG" height = "250">
 
 Link Filters are working as expected
 
@@ -49,6 +49,6 @@ Once logged out only Public Articles are visible
 
 Calls FBI!!
 
-<img src="Screenshot/16. Fbi.GIF" height = "250">
+<img src="Screenshot/16. FBI.gif" height = "250">
 
 Thank You for wachin!!!
