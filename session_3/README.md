@@ -49,6 +49,6 @@ Once logged out only Public Articles are visible
 
 Calls FBI!!
 
-<img src="Screenshot/16. Fbi.PNG" height = "250">
+<img src="Screenshot/16. Fbi.GIF" height = "250">
 
 Thank You for wachin!!!
