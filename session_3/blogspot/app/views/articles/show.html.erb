@@ -1,0 +1,26 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @article.title %>
+</p>
+
+<p>
+  <strong>Tags:</strong>
+  <%= @article.tags %>
+</p>
+
+<p>
+  <strong>Topic:</strong>
+  <%= @article.topic %>
+</p>
+
+<p>
+  <strong>Content:</strong>
+  <%= @article.content %>
+</p>
+<%#even we can check the condition here too%>
+  <%if @goodboy%>
+    <%= link_to 'Edit', edit_article_path(@article) %> |
+  <%end%>
+<%= link_to 'Back', articles_path %>
