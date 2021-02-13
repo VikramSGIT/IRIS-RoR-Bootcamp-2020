@@ -110,8 +110,4 @@ class ArticlesController < ApplicationController
     def article_params
       params.require(:article).permit(:title, :tags, :topic, :content, :public, :image)
     end
-
-    def html
-      render html: "articles/show"
-    end
 end

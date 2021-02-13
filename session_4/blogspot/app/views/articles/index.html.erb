@@ -6,7 +6,9 @@
           <div class="card mb-2">
               <div class="row g-0">
                 <div class="col-md-4">
-                  <%= image_tag article.image, style: widht='50', class: 'card-img-top'%>
+                  <%if article.image.attached?%>
+                    <%= image_tag article.image, style: widht="350", class: 'img-fluid rounded float-left'%>
+                  <%end%>
                 </div>
                 <div class="col-md-8">
                   <div class="card-body">
