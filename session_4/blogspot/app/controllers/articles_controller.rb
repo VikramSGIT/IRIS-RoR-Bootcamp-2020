@@ -48,7 +48,7 @@ class ArticlesController < ApplicationController
             render pdf: "Article No. #{@article.id}",
             page_size: 'A4',
             template: "articles/show.html.erb",
-            layout: "application.html.erb",
+            layout: "pdf.html.erb",
             orientation: "Portrait",
             zoom: 1,
             dpi: 72
