@@ -5,10 +5,20 @@
  >   *-GoodBoy*
  
  So with that said let's see one of the *__covers__* for BlogSpot.
+
+# Features
+
+The new features which were been added to BlogSpot were:
+ * Live Toast Message (__AJAX__)
+ * Image Upload for atricles (__Active Storage__)
+ * Pagination (__Pagy__)
+ * PDF download (__wicked_pdf__)
+ * BootStrap Alerts
+ * Integrated Bootstrap framework
  
 # Opening a new session
 
-<img src="screenshot/1.PNG" height = "250"> <img src="Screenshot/2. SignUp.PNG" height = "250"> </div> <br>
+<img src="screenshot/1.PNG" height = "250">
 
 # Creating a New User
 
