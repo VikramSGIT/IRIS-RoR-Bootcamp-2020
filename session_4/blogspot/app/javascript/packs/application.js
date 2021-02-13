@@ -22,6 +22,10 @@ ActiveStorage.start()
 
 $(document).ready(function()
 {
+    document.getElementById('hide').addEventListener('click', function()
+    {
+        $('.toast').toast('hide');
+    });
     if (document.cookie.length > 0)
     {
         setInterval(function() 
@@ -35,9 +39,9 @@ $(document).ready(function()
                     url: "http://192.168.62.128:3000/newarticle/" + out,
                     type: "get",
                     success: function(result){
-                        if(result != null)
+                        if(result.name != null)
                         {
-                            $('.toast').toast({delay: 5000}, 'show');
+                            $('.toast').toast('show');
                             $('#name').html(result.name);
                             $('#msg').html(result.html);
                         }
@@ -45,7 +49,6 @@ $(document).ready(function()
                 });
             }
         }, 1000);
-        console.log(document.cookie);
     }
 });
 

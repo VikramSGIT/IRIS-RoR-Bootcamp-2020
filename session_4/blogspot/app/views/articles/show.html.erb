@@ -1,24 +1,27 @@
-<p>
-  <strong>Title:</strong>
-  <%= @article.title %>
-</p>
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h1 class="display-2"><strong><%= @article.title %></strong></h1>
 
-<p>
-  <strong>Tags:</strong>
-  <%= @article.tags %>
-</p>
+      <p class="h3 text-muted">
+        <%= @article.topic %>
+      </p>
 
-<p>
-  <strong>Topic:</strong>
-  <%= @article.topic %>
-</p>
-
-<p>
-  <strong>Content:</strong>
-  <%= @article.content %>
-</p>
+       <p class="h6">
+       <br>
+        <%= @article.content %>
+      </p>
+    </div>
+    <div class="col">
+      <br>
+      <%if @article.image.attached?%>
+        <%= image_tag @article.image, style: widht="400", class: 'img-fluid rounded float-left'%>
+      <%end%>
+    </div>
+  </div>
 <%#even we can check the condition here too%>
   <%if @goodboy%>
-    <%= link_to 'Edit', edit_article_path(@article), remote: false %> |
+    <%= link_to 'Edit', edit_article_path(@article), remote: false, class: 'btn text-white btn-primary'%>
   <%end%>
-<%= link_to 'Back', articles_path, remote: false %>
+  <%= link_to 'Back', articles_path, remote: false , class: 'btn text-white btn-primary'%>
+</div>

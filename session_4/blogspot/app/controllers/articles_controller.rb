@@ -7,7 +7,7 @@ class ArticlesController < ApplicationController
   # GET /articles or /articles.json
   Pagy::VARS[:items] = 4
   def index
-    @pagy, @articles = pagy(Article.all)
+    @pagy, @articles = pagy(Article.order("views DESC").all)
     if current_user
       if session[:private_access] > 0
         @im = true
@@ -30,11 +30,18 @@ class ArticlesController < ApplicationController
       if can? :update, @article, user_id: current_user.id
         @goodboy = true;
       end
+      if @article.views
+        views = @article.views + 1
+        @article.views = views
+      else
+        @article.views = 1
+      end
       if !@article.public
         session[:private_access] -= 1
         current_user.private_access -= 1
         current_user.save
       end
+      @article.save
     end
     # can use this also, but i think not safe
     #if @article.user_id == current_user.id || session[:admin]
@@ -47,6 +54,7 @@ class ArticlesController < ApplicationController
     if current_user
       @article = Article.new(article_params)
       @article.user_id = current_user.id
+      @article.views = 1
       if @article.save
         $new_article = @article
         redirect_to @article, notice: 'Article was successfully created.'
@@ -92,6 +100,6 @@ class ArticlesController < ApplicationController
 
     # Only allow a list of trusted parameters through.
     def article_params
-      params.require(:article).permit(:title, :tags, :topic, :content, :public)
+      params.require(:article).permit(:title, :tags, :topic, :content, :public, :image)
     end
 end

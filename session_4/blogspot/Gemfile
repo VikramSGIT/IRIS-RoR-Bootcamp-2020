@@ -23,9 +23,7 @@ gem 'redis', '~> 4.0'
 gem 'bcrypt', '~> 3.1.7'
 gem 'cancancan', '~> 3.2.1'
 gem 'pagy', '~> 3.10.0'
-gem 'rails-ajax', '~> 1.0.0.20140320'
-gem 'jquery-rails', '~> 4.4.0'
-gem 'jquery-turbolinks', '~> 2.1.0'
+gem 'bootstrap_form', '~> 4.0'
 # Use Active Storage variant
 # gem 'image_processing', '~> 1.2'
 

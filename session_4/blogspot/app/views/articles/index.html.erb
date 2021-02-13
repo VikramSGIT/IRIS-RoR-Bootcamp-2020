@@ -3,37 +3,50 @@
       <% @articles.each do |article| %>
         <%if @im || article.public || article.user_id == @id%>
         <div class="col-sm-6">
-         <div class="card mb-2">
-            <div class="card-body">
-              <h3 class="card-title">
-                <%= article.title %>
-             </h3>
-             <h5 class="card-subtitle mb-2 text-muted">
-               <%= article.topic %>
-             </h5>
-              <p class="card-text">
-                <%= article.content[0, 80] %>...
-             </p>
-               <%if current_user%>
-                  <%= link_to 'Read More', article, class: 'text-white btn btn-primary', remote: false %>
-                  <%if can? :update, article, user_id: current_user.id%>
-                   <%= link_to 'Edit', edit_article_path(article), class: 'text-white btn btn-primary', remote: false %>
-                    <%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-white btn btn-primary', remote: false %>
-                  <%end%>
-                <%end%>
-                <div class="d-flex justify-content-end">
-                  <div class="card-text">
-                    <span class="text-muted font-monospace">1.2k views</span>
-                    <span class="text-muted"><%= article.tags %></span>
-                  </div>
+          <div class="card mb-2">
+              <div class="row g-0">
+                <div class="col-md-4">
+                  <%= image_tag article.image, style: widht='50', class: 'card-img-top'%>
                 </div>
+                <div class="col-md-8">
+                  <div class="card-body">
+                    <h3 class="card-title">
+                      <%= article.title %>
+                    </h3>
+                    <h5 class="card-subtitle mb-2 text-muted">
+                      <%= article.topic %>
+                    </h5>
+                    <p class="card-text">
+                      <%= article.content[0, 80] %>...
+                    </p>
+                    <%if current_user%>
+                        <%= link_to 'Read More', article, class: 'text-white btn btn-primary', remote: false %>
+                        <%if can? :update, article, user_id: current_user.id%>
+                        <%= link_to 'Edit', edit_article_path(article), class: 'text-white btn btn-primary', remote: false %>
+                          <%= link_to 'Destroy', article, method: :delete, data: { confirm: 'Are you sure?' }, class: 'text-white btn btn-danger', remote: false %>
+                        <%end%>
+                      <%end%>
+                      <div class="d-flex justify-content-end">
+                        <div class="card-text">
+                          <%if article.views%>
+                            <span class="text-muted font-monospace"><%=article.views%> views</span>
+                          <%end%>
+                          <span class="text-muted"><%= article.tags %></span>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
             </div>
           </div>
-        </div>
+      </div>
     <%end%>
     <% end %>
     </div>
-<div class="container">
-  <%== pagy_bootstrap_nav(@pagy).html_safe%>
-</div>
+    <%if @articles.first%>
+      <div class="container">
+        <%== pagy_bootstrap_nav(@pagy).html_safe%>
+      </div>
+    <%else%>
+      No Article Found!!
+    <%end%>
 

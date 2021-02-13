@@ -68,12 +68,12 @@
     <div class="container">
       <%= yield %>
     </div>
+    <br>
     <div class="container">
-      <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
-        <div class="d-flex justify-content-end">
-          <div class="toast-body">
-            A new Blog Has been Posted on the topic <p class="" id="name"></p><div id="msg"></div>
-        </div>
+      <div class="toast align-items-center" data-autohide="false">
+      <div class="toast-body">
+        <button id= "hide" class="close" click="hideToast()">×</button>
+        New Blog Posted!! on <strong><div id="name"></div><div id="msg"></div></strong>
       </div>
     </div>
   </body>

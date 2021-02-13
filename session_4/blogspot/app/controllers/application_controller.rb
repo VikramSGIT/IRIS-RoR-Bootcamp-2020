@@ -20,17 +20,17 @@ class ApplicationController < ActionController::Base
       end
     end
     def ajax
-      data = $new_article
-      viewed = session[:notified_new_article]
-      if data && data.user_id != params[:id].to_i
-        if viewed == data.id || viewed == nil
-          if data
-            render json: {name: data.title, html: '<a href="articles/'+ data.id.to_s + '">Read More</a>'}
+      if session[:user_id]
+        data = $new_article
+        viewed = session[:notified_new_article]
+        if data && data.user_id != params[:id].to_i
+          if viewed != data.id || viewed != nil
             session[:notified_new_article] = $new_article.id
+            render json: {name: data.title, html: '<a href="articles/'+ data.id.to_s + '">Read More</a>'}
           end
+        else
+          render json: {}
         end
-      else
-        render json: '{}'
       end
     end
   end
