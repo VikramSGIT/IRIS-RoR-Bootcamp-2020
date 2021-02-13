@@ -42,6 +42,18 @@ class ArticlesController < ApplicationController
         current_user.save
       end
       @article.save
+      respond_to do |format|
+          format.html
+          format.pdf do
+            render pdf: "Article No. #{@article.id}",
+            page_size: 'A4',
+            template: "articles/show.html.erb",
+            layout: "application.html.erb",
+            orientation: "Portrait",
+            zoom: 1,
+            dpi: 72
+        end
+      end
     end
     # can use this also, but i think not safe
     #if @article.user_id == current_user.id || session[:admin]
@@ -88,10 +100,6 @@ class ArticlesController < ApplicationController
     end
   end
 
-  def message
-    
-  end
-
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_article
@@ -101,5 +109,9 @@ class ArticlesController < ApplicationController
     # Only allow a list of trusted parameters through.
     def article_params
       params.require(:article).permit(:title, :tags, :topic, :content, :public, :image)
+    end
+
+    def html
+      render html: "articles/show"
     end
 end

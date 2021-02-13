@@ -24,4 +24,5 @@
     <%= link_to 'Edit', edit_article_path(@article), remote: false, class: 'btn text-white btn-primary'%>
   <%end%>
   <%= link_to 'Back', articles_path, remote: false , class: 'btn text-white btn-primary'%>
+  <%= link_to 'Download PDF', articles_path(@article, :format => :pdf), class: 'btn text-white btn-primary'%>
 </div>
