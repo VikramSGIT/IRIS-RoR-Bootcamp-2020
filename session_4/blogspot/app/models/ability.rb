@@ -2,9 +2,9 @@
 
 class Ability
   include CanCan::Ability
-
   def initialize(user)
-    can :index, Article
+    can :list, Article, User
+    can [:index], Article
     can :show, Article, public: true
 
     can [:index, :show, :create], User

@@ -1,15 +1,80 @@
 <!DOCTYPE html>
 <html>
-  ...
-  <body>
-    <% if current_user %>
-      Logged in as <%= current_user.email %>
-      <%= link_to 'Log Out', logout_path %>
-    <% else %>
-      <%= link_to 'Sign Up', signup_path %>
-      <%= link_to 'Log In', login_path, method: :delete %>
-    <% end %>
-  </body>
+  <head>
+    <%= csp_meta_tag %>
 
-  <%= yield %>
+    <%= stylesheet_link_tag 'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_pack_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+      <%= link_to 'BlogSpot', root_path, class: 'navbar-brand', remote: false%>
+
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon">hi</span>
+      </button>
+
+      <div class="collapse navbar-collapse" id="navbarColor02">
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+          <li class="nav-item">
+            <a class="nav-link" aria-current="page" href="/articles">All Articles</a>
+          </li>
+
+          <li class="nav-item">
+            <% if can? :create, Article %>
+              <%= link_to 'New Article', new_article_path, class:"nav-link", remote: false%>
+            <% end %>
+          </li>
+        </ul>
+        </div>
+      </div>
+      <div class="container-fluid justify-content-end">
+         <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <%if current_user%>
+              <li class="nav-item">
+                <span class="navbar-text">Logged in as <%=current_user.email%></span>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'Logout', logout_path, class: 'nav-link' , remote: false%>
+              </li>
+            <%else%>
+              <li class="nav-item">
+                <%= link_to 'SignIn', login_path, class: 'nav-link' , remote: false%>
+              </li>
+              <li class="nav-item">
+                <%= link_to 'SignUp', signup_path, class: 'nav-link' , remote: false%>
+              </li>
+            <%end%>
+          </ul>
+      </div>
+    </nav>
+    </div>
+    <%if notice%>
+    <div class="container">
+      <br><div class="alert alert-success" role="alert">
+        <%= notice %>
+      </div>
+    </div>
+    <%end%>
+    <%if alert%>
+    <div class="container gap-3">
+      <br><div class="alert alert-danger" role="alert">
+        <%= alert %>
+      </div>
+    </div>
+    <%end%>
+    <div class="container">
+      <%= yield %>
+    </div>
+    <div class="container">
+      <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex justify-content-end">
+          <div class="toast-body">
+            A new Blog Has been Posted on the topic <p class="" id="name"></p><div id="msg"></div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

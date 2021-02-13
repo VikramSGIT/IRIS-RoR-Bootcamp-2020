@@ -1,11 +1,13 @@
 class ArticlesController < ApplicationController
   load_and_authorize_resource
+  include Pagy::Backend
 
   before_action :set_article, only: [:show, :edit, :update, :destroy]
 
   # GET /articles or /articles.json
+  Pagy::VARS[:items] = 4
   def index
-    @articles = Article.all
+    @pagy, @articles = pagy(Article.all)
     if current_user
       if session[:private_access] > 0
         @im = true
@@ -46,6 +48,7 @@ class ArticlesController < ApplicationController
       @article = Article.new(article_params)
       @article.user_id = current_user.id
       if @article.save
+        $new_article = @article
         redirect_to @article, notice: 'Article was successfully created.'
       else
         render :new
@@ -75,6 +78,10 @@ class ArticlesController < ApplicationController
       format.html { redirect_to articles_url, notice: "Article was successfully destroyed." }
       format.json { head :no_content }
     end
+  end
+
+  def message
+    
   end
 
   private
